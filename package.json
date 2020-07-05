@@ -1,13 +1,16 @@
 {
   "name": "gatsby-starter-default",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A website used to generate workouts",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Neil Shapiro <nshapiro91@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "fontsource-roboto": "^2.1.4",
     "gatsby": "^2.23.12",
     "gatsby-image": "^2.4.9",
     "gatsby-plugin-manifest": "^2.4.14",
+    "gatsby-plugin-material-ui": "^2.1.9",
     "gatsby-plugin-offline": "^3.2.13",
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-sharp": "^2.6.14",
