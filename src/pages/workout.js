@@ -1,4 +1,4 @@
-import getExercises from './exercises'
+import { getExercises, getBodyParts, getEquipment } from './exercises'
 
 const exercises = getExercises();
 

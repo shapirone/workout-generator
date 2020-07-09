@@ -1,6 +1,6 @@
 import json from './workouts.json'
 
-export default function formatExercises() {
+function formatExercises() {
   if (json && json.feed) {
     const entries = json.feed.entry;
     const columns = entries.splice(0, 7).reduce((acc, val) => {
@@ -21,9 +21,29 @@ export default function formatExercises() {
       return acc;
     }, {});
 
+    const exercises = Object.values(rows);
+    const equipment = [... new Set(exercises.map(e => e.category))];
+    const bodyParts = ['None', ... new Set(exercises.map(e => e.mainBodyPart))];
 
-    return Object.values(rows);
+    return {
+      bodyParts,
+      exercises,
+      equipment
+    }
   } else {
-    return [];
+    return {};
   }
+}
+
+const formattedExercises = formatExercises();
+
+export function getExercises() {
+  return formattedExercises.exercises
+}
+
+export function getBodyParts() {
+  return formattedExercises.bodyParts;
+}
+export function getEquipment() {
+  return formattedExercises.equipment;
 }
