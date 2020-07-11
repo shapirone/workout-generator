@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react"
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from "@material-ui/core/styles"
 
-import { getEquipment, getBodyParts } from '../pages/exercises'
+import { getEquipment, getBodyParts } from "../pages/exercises"
 
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import Button from "@material-ui/core/Button"
+import Chip from "@material-ui/core/Chip"
+import Checkbox from "@material-ui/core/Checkbox"
+import Grid from "@material-ui/core/Grid"
+import Input from "@material-ui/core/Input"
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import FormControl from "@material-ui/core/FormControl"
+import Typography from "@material-ui/core/Typography"
+import Select from "@material-ui/core/Select"
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
@@ -24,18 +25,18 @@ const MenuProps = {
       width: 250,
     },
   },
-};
+}
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
     maxWidth: 300,
   },
   chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    fontSize: '10px',
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: "10px",
   },
   chip: {
     margin: 2,
@@ -44,76 +45,93 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   container: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(#ba000d, #ff7961 40%, #ff7961 60%, #ba000d)'
-  }
-}));
+    background: "linear-gradient(#ba000d, #ff7961 40%, #ff7961 60%, #ba000d)",
+    position: "fixed",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: "20%",
+  },
+}))
 
-
-function Sidebar({ getExercises }) {
-  const [equipment, setEquipment] = useState([]);
-  const [bodyParts, setBodyParts] = useState([]);
-  const [selectedEquipment, setSelectedEquipment] = useState([]);
-  const [selectedBodyPart, setSelectedBodyPart] = useState('');
-  const classes = useStyles();
+function Sidebar({
+  getExercises,
+  setFocus,
+  equipment,
+  userEquipment,
+  setUserEquipment,
+}) {
+  const [bodyParts, setBodyParts] = useState([])
+  const [selectedBodyPart, setSelectedBodyPart] = useState("Whole Body")
+  const classes = useStyles()
   // const theme = useTheme();
 
   useEffect(() => {
-    setEquipment(getEquipment());
-    setBodyParts(getBodyParts());
+    setUserEquipment(equipment)
+    setBodyParts(getBodyParts())
   }, [])
 
-  const handleEquipmentChange = (event) => {
-    setSelectedEquipment(event.target.value);
-  };
+  const handleBodyPartChange = event => {
+    setSelectedBodyPart(event.target.value)
+  }
 
-  const handleBodyPartChange = (event) => {
-    setSelectedBodyPart(event.target.value);
-  };
-
-  const handleDelete = (chipToDelete) => () => {
-    setSelectedEquipment((chips) => {
-      return chips.filter((chip) => {
-        return (chip !== chipToDelete)
-      })
-    })
-  };
+  const handleEquipment = clickedChip => event => {
+    userEquipment.includes(clickedChip)
+      ? setUserEquipment(
+          userEquipment.filter(equipment => equipment !== clickedChip)
+        )
+      : setUserEquipment([...userEquipment, event.target.innerHTML])
+  }
 
   return (
-    <Grid container direction={'column'} spacing={4} alignItems="center" justify="center" className={classes.container}>
-      <Grid item container direction={'column'} justify="center" style={{ width: '70%' }}>
-        <FormControl>
-          <InputLabel id="equipment-label">Equipment</InputLabel>
-          <Select
-            labelId="equipment-label"
-            id="equipment"
-            multiple
-            value={selectedEquipment}
-            onChange={handleEquipmentChange}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={(selected) => 'Equipment'}
-            MenuProps={MenuProps}
-          >
-            {equipment.map((name) => {
-              return (
-                <MenuItem key={name} value={name}>
-                  <Checkbox checked={selectedEquipment.indexOf(name) > -1} />
-                  <ListItemText primary={name} />
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </FormControl>
+    <Grid
+      container
+      direction={"column"}
+      alignItems="center"
+      justify="center"
+      className={classes.container}
+    >
+      <Grid
+        item
+        container
+        direction={"column"}
+        justify="center"
+        style={{ width: "70%" }}
+      >
+        <Typography>Equipment Available</Typography>
         <div className={classes.chips}>
-          {selectedEquipment.map((value) => (
-            <li key={value} style={{ listStyle: 'none', marginBottom: '4px', }}>
-              <Chip label={value} className={classes.chip} onDelete={handleDelete(value)} style={{ fontSize: "12px", height: '24px' }} />
-            </li>
-          ))}
+          {equipment.map(value => {
+            const isEquipmentSelected = userEquipment.includes(value)
+            return (
+              <li key={value} style={{ listStyle: "none", margin: "4px" }}>
+                <Chip
+                  variant={isEquipmentSelected ? "default" : "outlined"}
+                  color="primary"
+                  size="small"
+                  label={value}
+                  className={classes.chip}
+                  onClick={
+                    value !== "Bodyweight" ? handleEquipment(value) : null
+                  }
+                  onDelete={
+                    isEquipmentSelected && value !== "Bodyweight"
+                      ? handleEquipment(value)
+                      : null
+                  }
+                />
+              </li>
+            )
+          })}
         </div>
       </Grid>
-      <Grid item container direction={'column'} justify="center" style={{ width: '70%' }}>
+      <Grid
+        item
+        container
+        direction={"column"}
+        justify="center"
+        style={{ width: "70%", marginTop: "20px" }}
+      >
         <FormControl>
           <InputLabel id="equipment-label">Focus Area</InputLabel>
           <Select
@@ -122,10 +140,10 @@ function Sidebar({ getExercises }) {
             value={selectedBodyPart}
             onChange={handleBodyPartChange}
             input={<Input id="select-bodypart" />}
-            renderValue={(selected) => selected || "Body Part"}
+            renderValue={selected => selected || "Body Part"}
             MenuProps={MenuProps}
           >
-            {bodyParts.map((name) => {
+            {bodyParts.map(name => {
               return (
                 <MenuItem key={name} value={name}>
                   <ListItemText primary={name} />
@@ -135,11 +153,13 @@ function Sidebar({ getExercises }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item>
-        <Button variant="contained" color="primary" onClick={getExercises}>Generate</Button>
+      <Grid item style={{ marginTop: "20px" }}>
+        <Button variant="contained" color="primary" onClick={getExercises}>
+          Generate
+        </Button>
       </Grid>
-    </Grid >
+    </Grid>
   )
 }
 
-export default Sidebar;
+export default Sidebar
