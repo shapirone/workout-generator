@@ -8,7 +8,7 @@ Currently it only supports one format (4 Rounds of 3 exercises), but eventually 
 ## How it's built
 
 As of today, the site is built using the default SSG from Gatsby.
-The data is coming from a Google Sheet that is updated and exported manually, then saved into the app as a static JSON file. The app is then transforms the default exported JSON into the format expected by the React client-side.
+The data is coming from a Google Sheet that is updated and exported manually, then saved into the app as a static JSON file. The app then transforms the default exported JSON into the format expected by the React client-side.
 
 ## Getting it running locally
 

@@ -1,4 +1,4 @@
-import { getExercises, getBodyParts, getEquipment } from "./exercises"
+import { getExercises } from "./exercises"
 import { standard, lower, upper, core } from "./plans"
 
 const NUM_ROUNDS = 4
@@ -42,7 +42,7 @@ function getRandomExercises(arr, count) {
   else if (len < count) {
     console.log(arr[0])
     throw new Error(
-      `Can\'t get ${count} exercises if we don\'t have ${count} exercises`
+      `Can't get ${count} exercises if we don't have ${count} exercises`
     )
   }
 
@@ -71,8 +71,9 @@ function getWorkoutFocus(focus) {
       return core
     case "Legs":
       return lower
+    default:
+      return standard
   }
-  return standard
 }
 
 function splitExercisesToRounds(exercises, numRounds) {

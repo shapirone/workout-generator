@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react"
 
-import { makeStyles, useTheme } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 
-import { getEquipment, getBodyParts } from "../pages/exercises"
+import { getBodyParts } from "../pages/exercises"
 
 import Button from "@material-ui/core/Button"
 import Chip from "@material-ui/core/Chip"
-import Checkbox from "@material-ui/core/Checkbox"
 import Grid from "@material-ui/core/Grid"
 import Input from "@material-ui/core/Input"
 import InputLabel from "@material-ui/core/InputLabel"
@@ -70,7 +69,7 @@ function Sidebar({
   useEffect(() => {
     setUserEquipment(equipment)
     setBodyParts(getBodyParts())
-  }, [])
+  }, [equipment])
 
   const handleBodyPartChange = event => {
     setSelectedBodyPart(event.target.value)
