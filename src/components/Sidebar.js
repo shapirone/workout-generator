@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 
 import { makeStyles } from "@material-ui/core/styles"
 
-import { getBodyParts } from "../pages/exercises"
+import { getBodyParts } from "../utils/exercises"
 
 import Button from "@material-ui/core/Button"
 import Chip from "@material-ui/core/Chip"

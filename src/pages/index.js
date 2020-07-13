@@ -13,8 +13,8 @@ import CardMedia from "@material-ui/core/CardMedia"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 
-import getWorkout from "./workout"
-import { getEquipment } from "./exercises"
+import getWorkout from "../utils/workout"
+import { getEquipment } from "../utils/exercises"
 
 const IndexPage = () => {
   const equipment = getEquipment()

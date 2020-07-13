@@ -1,4 +1,4 @@
-import json from "./workouts.json"
+import json from "../data/workouts.json"
 
 function formatExercises() {
   if (json && json.feed) {
