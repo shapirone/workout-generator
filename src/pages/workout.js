@@ -4,7 +4,6 @@ import { standard, lower, upper, core } from "./plans"
 const NUM_ROUNDS = 4
 
 const exercises = getExercises()
-console.log(exercises)
 
 export default function getWorkout(focus, equipment) {
   const workoutStructure = getWorkoutFocus(focus)
@@ -40,7 +39,6 @@ function getRandomExercises(arr, count) {
 
   if (len === count) return arr
   else if (len < count) {
-    console.log(arr[0])
     throw new Error(
       `Can't get ${count} exercises if we don't have ${count} exercises`
     )
@@ -83,13 +81,9 @@ function splitExercisesToRounds(exercises, numRounds) {
   let start = 0
 
   while (rounds.length < numRounds) {
-    console.log(exercises)
-    // console.log(start, start + exercisesPerRound)
-    console.log(exercises.slice(start, start + exercisesPerRound))
     rounds.push(exercises.slice(start, start + exercisesPerRound))
     start += exercisesPerRound
   }
-  console.log(rounds)
 
   return rounds
 }
