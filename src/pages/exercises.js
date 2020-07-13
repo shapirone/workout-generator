@@ -21,9 +21,20 @@ function formatExercises() {
       return acc
     }, {})
 
-    const exercises = Object.values(rows)
-    const equipment = [...new Set(exercises.map(e => e.category))]
-    const bodyParts = [...new Set(exercises.map(e => e.mainBodyPart))]
+    const exercises = Object.values(rows).map(e =>
+      e.referenceVideo
+        ? {
+            ...e,
+            referenceVideo: e.referenceVideo.replace("watch?v=", "embed/"),
+          }
+        : e
+    )
+    const equipment = [...new Set(exercises.map(e => e.category))].filter(
+      cat => cat
+    )
+    const bodyParts = [...new Set(exercises.map(e => e.mainBodyPart))].filter(
+      part => part
+    )
 
     return {
       bodyParts,

@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box"
 import Container from "@material-ui/core/Container"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
+import CardMedia from "@material-ui/core/CardMedia"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 
@@ -61,11 +62,22 @@ const IndexPage = () => {
                       <Typography variant="h5">Round {idx + 1}</Typography>
                       <Grid container>
                         {round.map(activity => {
-                          const { exercise, details, category } = activity
+                          const {
+                            exercise,
+                            details,
+                            category,
+                            referenceVideo,
+                          } = activity
                           return (
                             <Card style={{ flex: "1 0 30%", margin: "0.5rem" }}>
                               <Grid item min>
                                 <Grid spacing={4} direction="row">
+                                  <CardMedia
+                                    component="iframe"
+                                    height="200"
+                                    src={referenceVideo}
+                                    style={{ backgroundColor: "black" }}
+                                  />
                                   <CardContent gutterbottom>
                                     <Grid item>
                                       <Typography variant="h6">
