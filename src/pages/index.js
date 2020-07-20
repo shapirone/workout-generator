@@ -18,12 +18,12 @@ import { getEquipment } from "../utils/exercises"
 
 const IndexPage = () => {
   const equipment = getEquipment()
-  const [exercises, setExercises] = useState([])
+  const [workout, setWorkout] = useState([])
   const [focus, setFocus] = useState("")
   const [userEquipment, setUserEquipment] = useState(equipment)
 
   const getExercises = () => {
-    setExercises(getWorkout(focus, userEquipment))
+    setWorkout(getWorkout(focus, userEquipment))
   }
 
   return (
@@ -56,18 +56,24 @@ const IndexPage = () => {
                 direction="column"
                 style={{ padding: "30px 10px" }}
               >
-                {exercises.map((round, idx) => {
+                {workout.map((round, idx) => {
                   return (
                     <Box key={round}>
                       <Typography variant="h5">Round {idx + 1}</Typography>
                       <Grid container>
                         {round.map(activity => {
+                          console.log(activity)
                           const {
                             exercise,
                             details,
                             category,
                             referenceVideo,
+                            high,
+                            low,
+                            sides,
+                            timed,
                           } = activity
+
                           return (
                             <Card style={{ flex: "1 0 30%", margin: "0.5rem" }}>
                               <Grid item min>
