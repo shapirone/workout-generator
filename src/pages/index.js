@@ -3,13 +3,12 @@ import React, { useState } from "react"
 import Layout from "../components/layout"
 // import Image from "../components/image"
 import SEO from "../components/seo"
+import Counter from "../components/Counter"
+import ExerciseCard from "../components/ExerciseCard"
 import Sidebar from "../components/Sidebar"
 
 import Box from "@material-ui/core/Box"
 import Container from "@material-ui/core/Container"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import CardMedia from "@material-ui/core/CardMedia"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 
@@ -62,60 +61,7 @@ const IndexPage = () => {
                       <Typography variant="h5">Round {idx + 1}</Typography>
                       <Grid container>
                         {round.map(activity => {
-                          console.log(activity)
-                          const {
-                            exercise,
-                            details,
-                            category,
-                            referenceVideo,
-                            high,
-                            low,
-                            sides,
-                            timed,
-                          } = activity
-
-                          return (
-                            <Card style={{ flex: "1 0 30%", margin: "0.5rem" }}>
-                              <Grid item min>
-                                <Grid spacing={4} direction="row">
-                                  <CardMedia
-                                    component="iframe"
-                                    height="200"
-                                    src={referenceVideo}
-                                    style={{ backgroundColor: "black" }}
-                                  />
-                                  <CardContent gutterbottom>
-                                    <Grid item>
-                                      <Typography variant="h6">
-                                        {exercise}
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                      <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                      >
-                                        {category}
-                                      </Typography>
-                                    </Grid>
-                                    {details && (
-                                      <Grid item>
-                                        <Typography
-                                          variant="body2"
-                                          color="textSecondary"
-                                          component="p"
-                                          style={{ paddingTop: "1rem" }}
-                                        >
-                                          {details}
-                                        </Typography>
-                                      </Grid>
-                                    )}
-                                  </CardContent>
-                                </Grid>
-                              </Grid>
-                            </Card>
-                          )
+                          return <ExerciseCard exercise={activity} />
                         })}
                       </Grid>
                     </Box>
