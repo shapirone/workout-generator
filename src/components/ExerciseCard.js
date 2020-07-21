@@ -33,7 +33,7 @@ function ExerciseCard({ exercise }) {
           />
           <CardContent gutterbottom>
             <Box display="flex">
-              <Box flexBasis={"90%"}>
+              <Box flexBasis={"80%"}>
                 <Grid item>
                   <Typography variant="h6">{exerciseName}</Typography>
                 </Grid>
@@ -59,7 +59,7 @@ function ExerciseCard({ exercise }) {
                   </Grid>
                 )}
               </Box>
-              <Counter high={high} low={low} />
+              <Counter high={high} low={low} sides={sides} timed={timed} />
               {/* <Box display="flex" flexDirection="column">
                 <Box>{low}</Box>
                 <Box>{recString}</Box>

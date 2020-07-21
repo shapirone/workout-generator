@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import ButtonGroup from "@material-ui/core/ButtonGroup"
 import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 
 function getRecommendedNumber(high, low) {
   return Math.floor((Number(high) + Number(low)) / 2)
 }
 
-function Counter({ high, low }) {
+function Counter({ high, low, timed, sides }) {
   const [count, setCount] = useState(getRecommendedNumber(high, low))
 
   useEffect(() => {
@@ -33,9 +34,13 @@ function Counter({ high, low }) {
       justifyContent="center"
       alignItems="center"
     >
-      <Box style={{ color: "gray" }}>{high}</Box>
+      <Box style={{ color: "gray" }}>
+        <Typography variant="caption">Low {low}</Typography>
+      </Box>
       <ButtonGroup
+        orientation="vertical"
         size="small"
+        variant="contained"
         aria-label="small outlined button group"
         style={{
           display: "flex",
@@ -44,13 +49,31 @@ function Counter({ high, low }) {
           alignItems: "center",
         }}
       >
-        <Button onClick={handleIncrement}>+</Button>
+        {count > 1 && (
+          <Button
+            onClick={handleDecrement}
+            color="primary"
+            style={{ minWidth: "100%" }}
+          >
+            -
+          </Button>
+        )}
         <Button disabled style={{ color: "black" }}>
-          {count}
+          <Typography variant="caption">
+            {count} {timed && "sec."} {sides && "ea."}
+          </Typography>
         </Button>
-        {count > 1 && <Button onClick={handleDecrement}>-</Button>}
+        <Button
+          onClick={handleIncrement}
+          color="primary"
+          style={{ minWidth: "100%" }}
+        >
+          +
+        </Button>
       </ButtonGroup>
-      <Box style={{ color: "gray" }}>{low}</Box>
+      <Box style={{ color: "gray" }}>
+        <Typography variant="caption">High {high}</Typography>
+      </Box>
     </Box>
   )
 }
